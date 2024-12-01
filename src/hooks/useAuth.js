@@ -4,10 +4,12 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
-export function useAuth() {
+function useAuth() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -25,9 +27,21 @@ export function useAuth() {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const signInWithGoogle = async () => {
+    console.log("Intentando iniciar sesión con Google...");
+    const provider = new GoogleAuthProvider();
+
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error("Error al iniciar sesión con Google:", error.message);
+    }
+  };
   const logOut = () => {
+    console.log("El usuario se está deslogueando...");
     return signOut(auth);
   };
 
-  return { user, signUp, signIn, logOut };
+  return { user, signUp, signIn, logOut, signInWithGoogle };
 }
+export default useAuth;

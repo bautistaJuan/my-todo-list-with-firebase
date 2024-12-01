@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import Main from "../Main/Main";
 
 export function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { user, signUp, signIn, logOut } = useAuth();
+  const { user, signUp, signIn, signInWithGoogle } = useAuth();
 
   const handleSignUp = async e => {
     e.preventDefault();
@@ -27,22 +27,17 @@ export function Auth() {
       setError("Error al iniciar sesión: " + error.message);
     }
   };
-
-  const handleLogOut = async () => {
-    setError("");
-    try {
-      await logOut();
-    } catch (error) {
-      setError("Error al cerrar sesión: " + error.message);
-    }
+  const handleSignInWithGoogle = e => {
+    e.preventDefault();
+    signInWithGoogle();
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-xl">
+    <>
       {user ? (
         <Main />
       ) : (
-        <form className="space-y-4">
+        <form className="flex flex-col gap-3 w-full max-w-md justify-center">
           <input
             type="email"
             value={email}
@@ -58,20 +53,23 @@ export function Auth() {
             className="w-full p-2 border rounded"
           />
           <button
-            onClick={handleSignUp}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
-          >
-            Registrarse
-          </button>
-          <button
             onClick={handleSignIn}
             className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-200"
           >
             Iniciar sesión
           </button>
+          <button
+            onClick={handleSignUp}
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 mb-4"
+          >
+            Registrarse
+          </button>
+          <button onClick={handleSignInWithGoogle}>
+            Iniciar sesión con Google
+          </button>
         </form>
       )}
       {error && <p className="mt-4 text-red-500">{error}</p>}
-    </div>
+    </>
   );
 }
