@@ -59,14 +59,14 @@ export function Auth() {
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="Correo electrónico"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
           />
           <input
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder="Contraseña"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded text-black"
           />
           <button
             onClick={handleSignUp}
