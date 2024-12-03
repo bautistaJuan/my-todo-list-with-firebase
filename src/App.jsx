@@ -35,7 +35,7 @@ function App() {
               <IoMdLogOut className="absolute top-4 left-4 text-4xl cursor-pointer transition-transform duration-500 transform hover:scale-110" />
             </button>
           )}
-          <h1>Bienvenido</h1>
+
           <Auth />
         </div>
       </TodoProvider>

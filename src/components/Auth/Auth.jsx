@@ -53,34 +53,40 @@ export function Auth() {
       {user ? (
         <Main />
       ) : (
-        <form className="flex flex-col gap-3 w-full max-w-md justify-center">
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Correo electrónico"
-            className="w-full p-2 border rounded text-black"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Contraseña"
-            className="w-full p-2 border rounded text-black"
-          />
-          <button
-            onClick={handleSignUp}
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 mb-8"
-          >
-            Registrarse
-          </button>
-          <button onClick={handleSignIn} className="w-full mb-4">
-            Iniciar sesión
-          </button>
-          <button onClick={handleSignInWithGoogle} className="text-green-700 ">
-            Iniciar sesión con Google
-          </button>
-        </form>
+        <>
+          <h1>Bienvenido</h1>
+          <form className="flex flex-col gap-3 w-full max-w-md justify-center">
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Correo electrónico"
+              className="w-full p-2 border rounded text-black"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Contraseña"
+              className="w-full p-2 border rounded text-black"
+            />
+            <button
+              onClick={handleSignUp}
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 mb-8"
+            >
+              Registrarse
+            </button>
+            <button onClick={handleSignIn} className="w-full mb-4">
+              Iniciar sesión
+            </button>
+            <button
+              onClick={handleSignInWithGoogle}
+              className="text-green-700 "
+            >
+              Iniciar sesión con Google
+            </button>
+          </form>
+        </>
       )}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
