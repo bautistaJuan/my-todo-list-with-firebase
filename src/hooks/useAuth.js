@@ -32,7 +32,9 @@ function useAuth() {
       console.log("Usuario registrado exitosamente");
     } catch (err) {
       console.error("Error al registrarse:", err.message);
-      setError(err.message);
+      throw err;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,7 +45,9 @@ function useAuth() {
       console.log("Inicio de sesión exitoso");
     } catch (err) {
       console.error("Error al iniciar sesión:", err.message);
-      setError(err.message);
+      throw err;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,7 +56,10 @@ function useAuth() {
     try {
       return signInWithPopup(auth, provider);
     } catch (err) {
-      setError(err.message);
+      console.error("Error al iniciar sesión con Google:", err.message);
+      throw err;
+    } finally {
+      setIsLoading(false);
     }
   };
 

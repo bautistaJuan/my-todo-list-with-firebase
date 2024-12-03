@@ -24,7 +24,11 @@ const TodoProvider = ({ children }) => {
         collection(db, "users", user.uid, "todos"),
         snapshot => {
           setTodos(
-            snapshot.docs.map(doc => ({ id: doc.id, todo: doc.data().todo }))
+            snapshot.docs.map(doc => ({
+              id: doc.id,
+              todo: doc.data().todo,
+              completed: doc.data().completed || false,
+            }))
           );
           setIsLoading(false);
         }
@@ -35,7 +39,10 @@ const TodoProvider = ({ children }) => {
 
   const addTodo = async todo => {
     if (user && todo.trim() !== "") {
-      await addDoc(collection(db, "users", user.uid, "todos"), { todo });
+      await addDoc(collection(db, "users", user.uid, "todos"), {
+        todo,
+        completed: false,
+      });
     }
   };
 
@@ -47,16 +54,31 @@ const TodoProvider = ({ children }) => {
       alert("Please enter a valid todo");
     }
   };
-
   const removeTodo = async id => {
     if (user) {
       await deleteDoc(doc(db, "users", user.uid, "todos", id));
     }
   };
-
+  const toggleTodoCompletion = async (id, completed) => {
+    if (user) {
+      const todoDocRef = doc(db, "users", user.uid, "todos", id);
+      await updateDoc(todoDocRef, { completed: !completed });
+    }
+  };
+  const getCompletedTodos = () => todos.filter(todo => todo.completed);
+  const getIncompleteTodos = () => todos.filter(todo => !todo.completed);
   return (
     <TodoContext.Provider
-      value={{ todos, addTodo, isLoading, updateTodo, removeTodo }}
+      value={{
+        todos,
+        addTodo,
+        isLoading,
+        updateTodo,
+        removeTodo,
+        toggleTodoCompletion,
+        getCompletedTodos,
+        getIncompleteTodos,
+      }}
     >
       {children}
     </TodoContext.Provider>

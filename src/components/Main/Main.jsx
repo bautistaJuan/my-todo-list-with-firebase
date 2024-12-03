@@ -1,28 +1,29 @@
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { MdOutlineAddCircleOutline } from "react-icons/md";
 import TodoList from "../Todo/TodoList";
 import useTodoContext from "../../hooks/useTodoContext";
 const Main = () => {
   const [input, setInput] = useState("");
   const { addTodo } = useTodoContext();
-
+  const handleAddTodo = () => {
+    if (input.trim() !== "") {
+      addTodo(input);
+      setInput("");
+    }
+  };
   return (
     <>
-      <div className="p-6 rounded shadow-md w-full max-w-lg">
-        <h1 className="text-3xl font-bold text-center mb-4">ToDo App</h1>
+      <div className="p-4  w-full max-w-lg  absolute top-16">
         <div className="flex">
           <input
             type="text"
-            placeholder="Add a todo"
+            placeholder="Nueva tarea"
             className="py-2 px-4 border rounded w-full focus:outline-none mr-2 text-black"
             value={input}
             onChange={e => setInput(e.target.value)}
           />
-          <button
-            onClick={() => addTodo(input)}
-            className="bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white py-2 px-4 rounded"
-          >
-            <FaPlus />
+          <button onClick={handleAddTodo} className="py-2 rounded">
+            <MdOutlineAddCircleOutline className="text-2xl h-10 w-10" />
           </button>
         </div>
       </div>

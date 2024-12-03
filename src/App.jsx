@@ -7,7 +7,7 @@ import useAuth from "./hooks/useAuth";
 import "./App.css";
 
 function App() {
-  const { logOut } = useAuth();
+  const { logOut, user } = useAuth();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return JSON.parse(localStorage.getItem("isDarkMode")) || false;
   });
@@ -30,9 +30,12 @@ function App() {
             isDarkMode={isDarkMode}
             setIsDarkMode={setIsDarkMode}
           />
-          <button onClick={logOut}>
-            <IoMdLogOut className="absolute top-4 left-4 text-4xl cursor-pointer transition-transform duration-500 transform hover:scale-110" />
-          </button>
+          {user && (
+            <button onClick={logOut}>
+              <IoMdLogOut className="absolute top-4 left-4 text-4xl cursor-pointer transition-transform duration-500 transform hover:scale-110" />
+            </button>
+          )}
+          <h1>Bienvenido</h1>
           <Auth />
         </div>
       </TodoProvider>

@@ -1,20 +1,21 @@
 import TodoItem from "./TodoItem";
 import useTodoContext from "../../hooks/useTodoContext";
 import Loader from "../Loader/Loader";
+
 const TodoList = () => {
-  const { todos, removeTodo, updateTodo, isLoading } = useTodoContext();
+  const { todos, removeTodo, updateTodo, isLoading, toggleTodoCompletion } =
+    useTodoContext();
   return (
-    <div className=" p-6 rounded shadow-md w-full max-w-lg">
-      <h2 className="text-lg font-bold mb-4">Todo List</h2>
+    <div className="w-full overflow-y-auto h-[50vh] max-w-lg">
       <ul>
         {isLoading && <Loader />}
-        {todos.map((todo, index) => (
+        {todos.map(todo => (
           <TodoItem
-            key={index}
-            index={index}
+            key={todo.id}
             todo={todo}
-            setEdit={updateTodo}
             removeTodo={removeTodo}
+            updateTodo={updateTodo}
+            toggleTodoCompletion={toggleTodoCompletion}
           />
         ))}
       </ul>
