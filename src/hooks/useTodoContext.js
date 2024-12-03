@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TodoContext } from "../context/TodoContext";
-const useTodos = () => {
+const useTodoContext = () => {
   return useContext(TodoContext);
 };
 
-export default useTodos;
+export default useTodoContext;

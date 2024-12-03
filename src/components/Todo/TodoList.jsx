@@ -1,26 +1,25 @@
 import TodoItem from "./TodoItem";
-import PropTypes from "prop-types";
-const TodoList = ({ todos, setEdit, removeTodo }) => {
+import useTodoContext from "../../hooks/useTodoContext";
+import Loader from "../Loader/Loader";
+const TodoList = () => {
+  const { todos, removeTodo, updateTodo, isLoading } = useTodoContext();
   return (
-    <div className="bg-gray-100 p-6 rounded shadow-md w-full max-w-lg lg:w-1/4">
+    <div className=" p-6 rounded shadow-md w-full max-w-lg">
+      <h2 className="text-lg font-bold mb-4">Todo List</h2>
       <ul>
+        {isLoading && <Loader />}
         {todos.map((todo, index) => (
           <TodoItem
             key={index}
             index={index}
             todo={todo}
-            setEdit={setEdit}
+            setEdit={updateTodo}
             removeTodo={removeTodo}
           />
         ))}
       </ul>
     </div>
   );
-};
-TodoList.propTypes = {
-  todos: PropTypes.array.isRequired,
-  setEdit: PropTypes.func.isRequired,
-  removeTodo: PropTypes.func.isRequired,
 };
 
 export default TodoList;

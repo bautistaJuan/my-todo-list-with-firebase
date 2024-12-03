@@ -8,47 +8,63 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import useAuth from "../hooks/useAuth";
 import PropTypes from "prop-types";
 
 const TodoContext = createContext();
-// Este es que que mueve las ramas en esta app 🌐
+
 const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "todos"), snapshot => {
-      setTodos(
-        snapshot.docs.map(doc => ({ id: doc.id, todo: doc.data().todo }))
+    if (user) {
+      const unsubscribe = onSnapshot(
+        collection(db, "users", user.uid, "todos"),
+        snapshot => {
+          setTodos(
+            snapshot.docs.map(doc => ({ id: doc.id, todo: doc.data().todo }))
+          );
+          setIsLoading(false);
+        }
       );
-    });
-    return () => unsubscribe();
-  }, []);
+      return () => unsubscribe();
+    }
+  }, [user]);
 
   const addTodo = async todo => {
-    if (todo.trim() !== "") {
-      await addDoc(collection(db, "todos"), { todo });
+    if (user && todo.trim() !== "") {
+      await addDoc(collection(db, "users", user.uid, "todos"), { todo });
     }
   };
 
   const updateTodo = async (id, newTodo) => {
-    if (newTodo.trim() !== "") {
-      const todoDocRef = doc(db, "todos", id);
+    if (user && newTodo) {
+      const todoDocRef = doc(db, "users", user.uid, "todos", id);
       await updateDoc(todoDocRef, { todo: newTodo });
+    } else {
+      alert("Please enter a valid todo");
     }
   };
 
   const removeTodo = async id => {
-    await deleteDoc(doc(db, "todos", id));
+    if (user) {
+      await deleteDoc(doc(db, "users", user.uid, "todos", id));
+    }
   };
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, updateTodo, removeTodo }}>
+    <TodoContext.Provider
+      value={{ todos, addTodo, isLoading, updateTodo, removeTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );
 };
+
 TodoProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { TodoProvider };
+export { TodoProvider, TodoContext };

@@ -1,37 +1,39 @@
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Main from "../Main/Main";
+import Loader from "../Loader/Loader";
 
 export function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { user, signUp, signIn, signInWithGoogle } = useAuth();
-
+  const { user, signUp, signIn, signInWithGoogle, isLoading } = useAuth();
+  const [error, setError] = useState(null);
   const handleSignUp = async e => {
     e.preventDefault();
-    setError("");
     try {
       await signUp(email, password);
     } catch (error) {
-      setError("Error al registrarse: " + error.message);
+      console.log("Error al registrarse: " + error.message);
+      setError(error.message);
     }
   };
 
   const handleSignIn = async e => {
     e.preventDefault();
-    setError("");
     try {
       await signIn(email, password);
     } catch (error) {
-      setError("Error al iniciar sesión: " + error.message);
+      setError(error.message);
+      console.log("Error al registrarse: " + error.message);
     }
   };
   const handleSignInWithGoogle = e => {
     e.preventDefault();
     signInWithGoogle();
   };
-
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       {user ? (
@@ -69,7 +71,6 @@ export function Auth() {
           </button>
         </form>
       )}
-      {error && <p className="mt-4 text-red-500">{error}</p>}
     </>
   );
 }

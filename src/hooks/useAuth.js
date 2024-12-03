@@ -11,37 +11,64 @@ import { auth } from "../firebase";
 
 function useAuth() {
   const [user, setUser] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  if (error) {
+    console.error("Error en useAuth:", error);
+  }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       setUser(user);
+      setIsLoading(false);
     });
     return unsubscribe;
   }, []);
 
-  const signUp = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const signIn = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const signInWithGoogle = async () => {
-    console.log("Intentando iniciar sesión con Google...");
-    const provider = new GoogleAuthProvider();
-
+  const signUp = async (email, password) => {
+    setIsLoading(true);
+    setError(null);
     try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error("Error al iniciar sesión con Google:", error.message);
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log("Usuario registrado exitosamente");
+    } catch (err) {
+      console.error("Error al registrarse:", err.message);
+      setError(err.message);
     }
   };
-  const logOut = () => {
-    console.log("El usuario se está deslogueando...");
-    return signOut(auth);
+
+  const signIn = async (email, password) => {
+    setError(null);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Inicio de sesión exitoso");
+    } catch (err) {
+      console.error("Error al iniciar sesión:", err.message);
+      setError(err.message);
+    }
   };
 
-  return { user, signUp, signIn, logOut, signInWithGoogle };
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      return signInWithPopup(auth, provider);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const logOut = async () => {
+    setError(null);
+    try {
+      console.log("El usuario se está deslogueando...");
+      await signOut(auth);
+      console.log("Cierre de sesión exitoso");
+    } catch (err) {
+      console.error("Error al cerrar sesión:", err.message);
+      setError(err.message);
+    }
+  };
+
+  return { user, isLoading, signUp, signIn, logOut, signInWithGoogle };
 }
+
 export default useAuth;

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 const TodoItem = ({ todo, index, setEdit, removeTodo }) => {
   return (
-    <li className="flex items-center justify-between bg-white p-3 rounded shadow-md mb-3">
+    <li className="flex items-center justify-between bg-orange-400 p-3 rounded shadow-md mb-3 gap-4">
       <span className="text-lg">{todo.todo}</span>
       <div>
         <button
