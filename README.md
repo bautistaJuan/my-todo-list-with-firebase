@@ -14,6 +14,8 @@ This is a simple todo list application built using React and Vite for the fronte
 - **React**: JavaScript library for building user interfaces.
 - **Vite**: Next-generation frontend tooling.
 - **Firebase**: Platform for building web and mobile applications.
+- **Tailwind CSS**: For styles.
+- **React Icos**: For Icons.
 
 ## Getting Started
 
