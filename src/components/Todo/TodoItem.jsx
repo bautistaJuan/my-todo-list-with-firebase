@@ -18,16 +18,16 @@ const TodoItem = ({ todo, removeTodo, updateTodo, toggleTodoCompletion }) => {
   };
 
   return (
-    <li className="flex items-center bg-[rgba(38,167,184,100)] p-3 mb-3 rounded-md">
+    <li className="flex items-center bg-todo-item p-3 mb-3 rounded-md">
       {isEditing ? (
         <input
           type="text"
           value={editedTodo}
           onChange={e => setEditedTodo(e.target.value)}
-          className="flex-grow text-black mr-2 p-2 rounded"
+          className="flex-grow text-[1.1rem] text-black mr-2 p-2 rounded focus:outline-none"
         />
       ) : (
-        <div className="flex items-center flex-grow">
+        <div className="flex items-center flex-grow ">
           <input
             type="checkbox"
             checked={todo.completed}
@@ -35,10 +35,8 @@ const TodoItem = ({ todo, removeTodo, updateTodo, toggleTodoCompletion }) => {
             className="mr-2"
           />
           <span
-            className={`flex-grow ${
-              todo.completed
-                ? "line-through text-red-500"
-                : "text-white text-lg"
+            className={`flex-grow text-[1.5rem] break-all ${
+              todo.completed ? "line-through text-gray-700" : "text-white"
             }`}
           >
             {todo.todo}
@@ -48,21 +46,21 @@ const TodoItem = ({ todo, removeTodo, updateTodo, toggleTodoCompletion }) => {
       <div>
         {isEditing ? (
           <button
-            className="mr-2 p-2 bg-gradient-to-r from-green-400 to-green-600 text-white rounded hover:from-green-500 hover:to-green-700"
+            className="mr-2 p-2 text-blue-600 text-[1.3rem]"
             onClick={handleSave}
           >
             <FaSave />
           </button>
         ) : (
           <button
-            className="mr-2 p-2 bg-gradient-to-r from-gray-400 to-gray-600 text-white rounded hover:from-gray-500 hover:to-gray-700"
+            className="mr-2 p-2 text-blue-900 text-[1.3rem]"
             onClick={handleEdit}
           >
             <FaPencilAlt />
           </button>
         )}
         <button
-          className="p-2 bg-gradient-to-r from-red-400 to-red-600 text-white rounded hover:from-red-500 hover:to-red-700"
+          className="p-2 text-red-500 text-[1.3rem]"
           onClick={() => removeTodo(todo.id)}
         >
           <FaTrash />

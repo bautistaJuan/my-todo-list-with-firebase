@@ -13,17 +13,20 @@ const Main = () => {
   };
   return (
     <>
-      <div className="p-4  w-full max-w-lg  absolute top-16">
-        <div className="flex">
+      <div className="p-4  w-full max-w-lg absolute top-16">
+        <div className="flex relative">
           <input
             type="text"
             placeholder="Nueva tarea"
-            className="py-2 px-4 border rounded w-full focus:outline-none mr-2 text-black"
+            className="py-3 px-4 border rounded-md w-full focus:outline-none text-black"
             value={input}
             onChange={e => setInput(e.target.value)}
           />
-          <button onClick={handleAddTodo} className="py-2 rounded">
-            <MdOutlineAddCircleOutline className="text-2xl h-10 w-10" />
+          <button
+            onClick={handleAddTodo}
+            className="py-2 absolute rounded right-2 -top-1"
+          >
+            <MdOutlineAddCircleOutline className="text-2xl text-gray-400 h-10 w-10" />
           </button>
         </div>
       </div>

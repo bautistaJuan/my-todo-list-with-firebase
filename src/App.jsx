@@ -33,8 +33,12 @@ function App() {
             setIsDarkMode={setIsDarkMode}
           />
           {user && (
-            <button onClick={logOut}>
-              <IoMdLogOut className="absolute top-4 left-4 text-4xl cursor-pointer transition-transform duration-500 transform hover:scale-110" />
+            <button
+              className="absolute flex items-center gap-1 top-4 left-4 text-4xl cursor-pointer transition-transform duration-500 transform hover:scale-110"
+              onClick={logOut}
+            >
+              <IoMdLogOut />
+              <label className="text-[1.2rem]">Salir</label>
             </button>
           )}
 

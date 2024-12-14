@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-todo-item {
+    background: rgb(9, 35, 57);
+    background: linear-gradient(19deg, rgba(9, 35, 57, 1) 0%, rgba(34, 93, 112, 1) 100%);
+}
