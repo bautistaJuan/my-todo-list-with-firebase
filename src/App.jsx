@@ -9,10 +9,12 @@ import "./App.css";
 function App() {
   const { logOut, user } = useAuth();
   const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Obtiene el valor almacenado en localStorage, si no existe isDarkMode es igual a false
     return JSON.parse(localStorage.getItem("isDarkMode")) || false;
   });
 
   useEffect(() => {
+    // Guarda el valor de isDarkMode en localStorage cuando cambia
     localStorage.setItem("isDarkMode", JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
@@ -24,7 +26,7 @@ function App() {
             isDarkMode
               ? "bg-dark-primary text-dark-text"
               : "bg-light-primary text-light-text"
-          } min-h-screen flex flex-col items-center justify-center gap-4 p-4 bg-dark-primary`}
+          } min-h-screen flex flex-col items-center justify-center gap-4 p-4 `}
         >
           <ButtonDarkMode
             isDarkMode={isDarkMode}
@@ -36,7 +38,7 @@ function App() {
             </button>
           )}
 
-          <Auth />
+          <Auth isDarkMode={isDarkMode} />
         </div>
       </TodoProvider>
     </>
