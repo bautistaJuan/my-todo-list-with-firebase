@@ -1,88 +1,49 @@
-# React Todo List with Firebase
+# Lista de Tareas - React + Firebase
 
-This is a simple todo list application built using React and Vite for the frontend and Firebase for the backend/database. This application allows users to create, read, update, and delete todo items in real-time.
+Esta es una aplicación web sencilla de lista de tareas, desarrollada con **React** y **Vite** en el frontend, y **Firebase** como backend y base de datos en tiempo real.
 
-## Features
+## Características
 
-- **Authentication**: Users can sign up and log in securely using Firebase Authentication.
-- **Real-time Updates**: Todo items are synchronized across multiple clients in real-time.
-- **CRUD Operations**: Users can create, read, update, and delete todo items.
-- **Responsive Design**: The application is designed to work on various screen sizes.
+- Crear, leer, actualizar y eliminar tareas (CRUD).
+- Sincronización en tiempo real usando Firebase.
+- Interfaz rápida y moderna gracias a Vite y React.
+- Persistencia de datos en la nube.
+- Autenticación con Google mediante Firebase.
 
-## Technologies Used
+## Tecnologías Utilizadas
 
-- **React**: JavaScript library for building user interfaces.
-- **Vite**: Next-generation frontend tooling.
-- **Firebase**: Platform for building web and mobile applications.
-- **Tailwind CSS**: For styles.
-- **React Icos**: For Icons.
+- **React** – Librería de JavaScript para construir interfaces de usuario.
+- **Vite** – Empaquetador ultrarrápido para desarrollo frontend.
+- **Firebase** – Plataforma de desarrollo con autenticación, base de datos en tiempo real y hosting.
 
-## Getting Started
+## Instalación
 
-### Prerequisites
-
-Before running the application, make sure you have the following installed:
-
-- Node.js
-- npm (Node Package Manager)
-
-### Installation
-
-1. Clone the repository:
-
+1. Clona este repositorio:
    ```bash
-   git clone git@github.com:bautistaJuan/my-todo-list-with-firebase.git
-   ```
+   git clone https://github.com/tu-usuario/nombre-del-repo.git
 
-2. Navigate to the project directory:
-
-   ```bash
-   cd my-todo-list-with-firebase
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-### Configuration
-
-1. Create a Firebase project on the [Firebase Console](https://console.firebase.google.com/).
-2. Enable Firestore database and Firebase Authentication for your project.
-3. Copy the Firebase configuration object from your Firebase project settings.
-4. Paste the configuration object into `src/firebase/firebase.js`.
-
-### Running the Application
-
-1. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-2. Open your web browser and navigate to [http://localhost:5173](http://localhost:5173) to view the application.
-
-## Deployment
-
-To deploy the application, you can follow the hosting instructions provided by Firebase. Typically, you would use the Firebase CLI to deploy your application.
-
+2. Instala las dependencias:
 ```bash
-firebase login
-firebase init
-# Follow the prompts to initialize Firebase Hosting
-firebase deploy
+npm install
 ```
 
-## Contributing
+3. Crea un archivo .env con tus credenciales de Firebase:
+```bash
+VITE_API_KEY=tu_api_key
+VITE_AUTH_DOMAIN=tu_auth_domain
+VITE_PROJECT_ID=tu_project_id
+VITE_STORAGE_BUCKET=tu_storage_bucket
+VITE_MESSAGING_SENDER_ID=tu_sender_id
+VITE_APP_ID=tu_app_id
+```
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue if you encounter any problems or have suggestions for improvement.
+4. Inicia el servidor de desarrollo:
+```bash
+npm run dev
+```
 
-## Acknowledgments
 
-- [React](https://reactjs.org/)
-- [Context API](https://react.dev/reference/react/useContext)
-- [Vite](https://vitejs.dev/)
-- [Firebase](https://firebase.google.com/)
-- [Firestore](https://firebase.google.com/docs/firestore)
-- [Firebase Authentication](https://firebase.google.com/docs/auth)
+
+Contribuciones
+
+¡Las contribuciones son bienvenidas! Puedes abrir issues o enviar pull requests.
